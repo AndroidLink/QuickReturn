@@ -1,5 +1,62 @@
+# http://www.kernel.org/pub/software/scm/git/docs/gitignore.html
+# ignore this file
+.gitignore
+# ignore all .svn folder.
+.svn/
+
+# ignore eclipse project file
+.classpath
+.project
+project.properties
+bin/
+
+# ignore idea project folder
+.idea/
+
+# ignore temp output folder
+gen/
+out/
+obj/
+
+*.iml
+
 .gradle
-/local.properties
-/.idea/workspace.xml
+build/
+
+.settings/
+xcdebugger/
+
+db_files
+
+_site/
 .DS_Store
-/build
+*.swp
+
+.metadata/
+
+local.properties
+.idea/workspace.xml
+.idea
+atlassian-ide-plugin.xml
+gradle.properties
+example/src/main/bin
+library/src/main/bin
+library/src/main/gen
+rockerhieu.keystore
+
+project.properties
+*/target
+target
+tmp
+*~
+bin
+*/test-output
+temp-testng-customsuite.xml
+**pom.xml.releaseBackup
+release.properties
+gen
+*/seed.txt
+notes
+logs
+gen-external-apklibs
+.idea
