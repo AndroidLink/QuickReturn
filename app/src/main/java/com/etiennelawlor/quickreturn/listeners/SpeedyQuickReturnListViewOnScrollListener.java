@@ -1,6 +1,7 @@
 package com.etiennelawlor.quickreturn.listeners;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -65,11 +66,26 @@ public class SpeedyQuickReturnListViewOnScrollListener implements AbsListView.On
 
     }
 
+    private int mPrevFirst = 0;
+    private int mPrevCount = 0;
     @Override
     public void onScroll(AbsListView listview, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+        if (mPrevFirst == firstVisibleItem && mPrevCount == visibleItemCount) {
+            return;
+        }
+
+        if (mPrevFirst + mPrevCount == firstVisibleItem + visibleItemCount) {
+            return;
+        }
+
         int scrollY = QuickReturnUtils.getScrollY(listview);
         int diff = mPrevScrollY - scrollY;
+        mPrevFirst = firstVisibleItem;
+        mPrevCount = visibleItemCount;
 
+//        Log.e(TAG, "onScroll, firstVisibleItem = " + firstVisibleItem + ", visibleItemCount = " +
+//                visibleItemCount + ", totalItemCount = " + totalItemCount);
+//        Log.i(TAG, "onScroll, diff = " + diff + ", mQuickReturnType = " + mQuickReturnType);
         if(diff>0){ // scrolling up
             switch (mQuickReturnType){
                 case HEADER:
@@ -109,6 +125,7 @@ public class SpeedyQuickReturnListViewOnScrollListener implements AbsListView.On
                         for(View view : mFooterViews){
                             if(view.getVisibility() == View.GONE){
                                 view.setVisibility(View.VISIBLE);
+//                                Log.i(TAG, "onScroll, diff = " + diff + ", animate footer to visible");
                                 view.startAnimation(mSlideFooterUpAnimation);
                             }
                         }
@@ -154,6 +171,7 @@ public class SpeedyQuickReturnListViewOnScrollListener implements AbsListView.On
                         for(View view : mFooterViews){
                             if(view.getVisibility() == View.VISIBLE){
                                 view.setVisibility(View.GONE);
+//                                Log.i(TAG, "onScroll, diff = " + diff + ", animate footer to gone");
                                 view.startAnimation(mSlideFooterDownAnimation);
                             }
                         }
